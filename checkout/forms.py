@@ -1,7 +1,7 @@
 from django import forms
 from .models import Order
 
-class OrderForm(fomrs.ModelForm):
+class OrderForm(forms.ModelForm):
     class Meta:
         Module = Order
         fields = (
