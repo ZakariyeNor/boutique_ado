@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
-from django.conf.settings import settings
+from django.conf import settings
 from .forms import OrderForm
 from bag.contexts import bag_contents
 import stripe
@@ -8,6 +8,9 @@ import stripe
 
 # Create your views here.
 def checkout(request):
+    stripe_pk = settings.STRIPE_PUBLIC_KEY
+    stripe_sk = settings.STRIPE_SECRET_KEY
+
     bag = request.session.get('bag', {})
     if not bag:
         messages.error(request, "There's nothing in your bag aat the moment")
@@ -16,13 +19,24 @@ def checkout(request):
     current_bag = bag_contents(request)
     total = current_bag['grand_total']
     stripe_total = round(total * 100)
+    stripe.api_key = stripe_sk
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
 
     order_form = OrderForm()
+
+    if not stripe_pk:
+        messages.warning(request, 'Stripe public key is missing, \
+            Did you forget to set it in your environment'
+        )
+
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
-        'stripe_public_key': 'pk_test_51R6WqAPGNpVOLTSm4kGD433Fd3rT3JH1ni9ZqjOgYkeAPCCogezZU8gt2SrLAGmB0ReKaCRLX5pglwDqSb5vyng200akrDHl1b',
-        'client_secret': 'test client secret',
+        'stripe_public_key': stripe_pk,
+        'client_secret': intent.client_secret,
     }
 
     return render(request, template, context)
