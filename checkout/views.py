@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from .forms import OrderForm
-
+from django.contrib import messages
 
 # Create your views here.
 def checkout(request):
@@ -9,10 +9,11 @@ def checkout(request):
         message.error(request, "There's nothing in your bag at the moment")
         return redirect(reverse('products'))
 
-    order_from = OrderForm()
+    order_form = OrderForm()
     template = 'checkout/checkout.html'
     context = {
-        'order_from': order_from,
+        'order_from': order_form,
     }
 
     return render(request, template, context)
+

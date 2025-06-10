@@ -4,20 +4,17 @@ from .models import Order
 
 class OrderForm(forms.ModelForm):
     class Meta:
-        moder = Order
-        fields = (
-            'full_name', 'email', 'phone_number',
-            'street_address1', 'street_address2',
-            'town_or_city', 'postcode',
-            'country', 'county',
-        )
+        model = Order
+        fields = ('full_name', 'email', 'phone_number',
+                  'street_address1', 'street_address2',
+                  'town_or_city', 'postcode', 'country',
+                  'county',)
 
     def __init__(self, *args, **kwargs):
         """
-        Add a placeholder and classes, remove auto generated
+        Add placeholders and classes, remove auto-generated
         labels and set autofocus on first field
         """
-
         super().__init__(*args, **kwargs)
         placeholders = {
             'full_name': 'Full Name',
@@ -26,13 +23,13 @@ class OrderForm(forms.ModelForm):
             'country': 'Country',
             'postcode': 'Postal Code',
             'town_or_city': 'Town or City',
-            'street_address1': 'Street Address1',
-            'street_address2': 'Street Address2',
-            'country': 'County',
+            'street_address1': 'Street Address 1',
+            'street_address2': 'Street Address 2',
+            'county': 'County',
         }
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
-        for fields in self.fields:
+        for field in self.fields:
             if self.fields[field].required:
                 placeholder = f'{placeholders[field]} *'
             else:
