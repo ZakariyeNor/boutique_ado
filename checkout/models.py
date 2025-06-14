@@ -34,7 +34,7 @@ class Order(models.Model):
         accounting for delivery costs.
         """
 
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total_sum']
+        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
         else:
@@ -50,7 +50,7 @@ class Order(models.Model):
         """
 
         if not self.order_number:
-            self.order_number = self._generate_order_number()
+            self.order_number = self.generate_order_number()
         super().save(*args, **kwargs)    
 
 
@@ -58,7 +58,7 @@ class Order(models.Model):
         return self.order_number
 
 class OrderLineItem(models.Model):
-    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitem')
+    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
     product_size = models.CharField(max_length=2, null=True, blank=True)
     quantity = models.IntegerField(null=False, blank=False, default=0)
