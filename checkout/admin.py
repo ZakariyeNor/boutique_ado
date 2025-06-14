@@ -1,18 +1,18 @@
 from django.contrib import admin
-from .models import OderLineItem, Order
+from .models import OrderLineItem, Order
 
 
 # Register your models here.
 
-class OderLineItemAdminInline(admin.TabularInline):
-    model = OderLineItem
+class OrderLineItemAdminInline(admin.TabularInline):
+    model = OrderLineItem
     readonly_fields = (
         'lineitem_total',
     )
 
 
 class OrderAdmin(admin.ModelAdmin):
-    inlines = (OderLineItemAdminInline,)
+    inlines = (OrderLineItemAdminInline,)
     readonly_fields = (
         'order_number', 'date',
         'delivery_cost', 'order_total',

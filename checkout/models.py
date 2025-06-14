@@ -57,7 +57,7 @@ class Order(models.Model):
     def __str__(self):
         return self.order_number
 
-class OderLineItem(models.Model):
+class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitem')
     product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
     product_size = models.CharField(max_length=2, null=True, blank=True)
