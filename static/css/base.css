@@ -40,8 +40,14 @@ body {
 
 .btn-outline-black {
     background: white;
-    color: black !important; /* Use important to override link colors for <a> elements */
+    color: black !important; /* use important to override link colors for <a> elements */
     border: 1px solid black;
+}
+.btn-outline-black:hover,
+.btn-outline-black:active,
+.btn-outline-black:focus {
+    background: black;
+    color: white !important;
 }
 
 .shop-now-button:hover,
@@ -67,13 +73,13 @@ body {
 }
 
 .overlay {
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    background: white;
-    z-index: -1;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background: white;
+	z-index: -1;
 }
 
 a.category-badge > span.badge:hover {
@@ -94,6 +100,8 @@ a.category-badge > span.badge:hover {
 .remove-item {
     cursor: pointer;
 }
+
+/* ------------------------------- bootstrap toasts */
 
 .message-container {
     position: fixed;
