@@ -1,0 +1,1 @@
+checkout/templates/checkout/confirmation_emails/confirmation_email_body.txt
