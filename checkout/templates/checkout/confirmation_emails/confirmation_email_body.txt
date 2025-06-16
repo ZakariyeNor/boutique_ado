@@ -1,19 +1,19 @@
-Hello {{ order.full_name }}!
+Hi {{ order.full_name }},
 
-This is a confirmation of your order at Boutique Ado. Your order information is below:
+Thank you for your order!
+
+We're happy to confirm that we've received your order {{ order.order_number }} placed on {{ order.date }}.
+
+Here are the details:
 
 Order Number: {{ order.order_number }}
-Order Date: {{ order.date }}
+Total: ${{ order.delivery_cost }}
+Total: ${{ order.grand_total }}
+Shipping To: {{ order.full_name }}, {{ order.street_address1 }}, {{ order.town_or_city }}, {{ order.country }}
 
-Order Total: ${{ order.order_total }}
-Delivery: ${{ order.delivery_cost }}
-Grand Total: ${{ order.grand_total }}
+We'll notify you as soon as your order is on its way. In the meantime, you can view your order history in your account at any time. You'r number {{ order.phone_number }}
 
-Your order will be shipped to {{ order.street_address1 }} in {{ order.town_or_city }}, {{ order.country }}.
-
-We've got your phone number on file as {{ order.phone_number }}.
-
-If you have any questions, feel free to contact us at {{ contact_email }}.
+If you have any questions, feel free to reply to this email {{ cantact_email }}or contact our support team.
 
 Thank you for your order!
 
