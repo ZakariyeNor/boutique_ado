@@ -11,6 +11,7 @@ import stripe
 @require_POST
 @csrf_exempt
 def webhook(request):
+    print('webhook reached')
     """Listen for webhooks from Stripe"""
     # Setup
     wh_secret = settings.STRIPE_WH_KEY
