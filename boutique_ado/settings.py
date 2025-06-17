@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 if os.path.isfile('env.py'):
     import env
@@ -32,6 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['8000-zakariyenor-boutiqueado-r1n42mvunk9.ws-eu120.gitpod.io',
 'localhost',
 '127.0.0.1'
+'boutique-adoa-cbd200b5c55e.herokuapp.com/'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -130,12 +132,17 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -193,3 +200,4 @@ STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WH_KEY = os.getenv('STRIPE_WH_KEY', '')
 DEFAULT_FROM_EMAIL = 'boutiqueado24@example.com'
+SECRET_KEY = os.environ.get('SECRET_KEY')
