@@ -33,7 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['8000-zakariyenor-boutiqueado-r1n42mvunk9.ws-eu120.gitpod.io',
 'localhost',
 '127.0.0.1',
-'boutique-adoa-cbd200b5c55e.herokuapp.com/'
+'boutique-adoa-cbd200b5c55e.herokuapp.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
