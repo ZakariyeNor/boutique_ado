@@ -123,7 +123,7 @@ def edit_product(request, product_id):
     else:
         form = ProductForm(instance=product)
         messages.info(request, f'You are editing {product.name}')
-    
+
     template = 'products/edit_product.html'
     context = {
         'form': form,
@@ -142,5 +142,7 @@ def delete_product(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
-    messages.success(request, f'Successfully deleted the {product.name} from the store')
+    messages.success(request,
+    f'Successfully deleted the {product.name} from the store'
+    )
     return redirect(reverse('products'))
